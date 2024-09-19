@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark Manager</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+    <h1>Bookmark Manager</h1>
+
+    <form hx-post="/bookmarks" hx-target="#bookmarks" hx-swap="beforeend">
+        <input type="text" name="Title" placeholder="Title" required>
+        <input type="url" name="URL" placeholder="URL" required>
+        <input type="text" name="Description" placeholder="Description">
+        <input type="text" name="Tags" placeholder="Tags (comma-separated)">
+        <button type="submit">Add Bookmark</button>
+    </form>
+
+    <div id="bookmarks">
+        {{range .bookmarks}}
+        <div class="bookmark" id="bookmark-{{.ID}}">
+            <h3>{{.Title}}</h3>
+            <p>{{.Description}}</p>
+            <a href="{{.URL}}" target="_blank">{{.URL}}</a>
+            <p>Tags: {{.Tags}}</p>
+            <div class="actions">
+                <button hx-post="/bookmarks/delete/{{.ID}}" hx-target="#bookmark-{{.ID}}" hx-swap="outerHTML">Delete</button>
+            </div>
+        </div>
+        {{else}}
+        <p class="no-bookmarks">No bookmarks available.</p>
+        {{end}}
+    </div>
+</body>
+</html>

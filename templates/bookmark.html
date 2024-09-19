@@ -1,0 +1,9 @@
+<div class="bookmark" id="bookmark-{{.bookmark.ID}}">
+    <h3>{{.bookmark.Title}}</h3>
+    <p>{{.bookmark.Description}}</p>
+    <a href="{{.bookmark.URL}}" target="_blank">{{.bookmark.URL}}</a>
+    <p>Tags: {{.bookmark.Tags}}</p>
+    <div class="actions">
+        <button hx-post="/bookmarks/delete/{{.bookmark.ID}}" hx-target="#bookmark-{{.bookmark.ID}}" hx-swap="outerHTML">Delete</button>
+    </div>
+</div>
